@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
+package Client;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -15,10 +15,9 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import java.awt.Font;
 import java.awt.Label;
-import java.util.HashMap;
-import java.util.Objects;
 
 import Server.Database;
+
 /**
  *
  * @author cthom

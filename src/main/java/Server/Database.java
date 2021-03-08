@@ -1,6 +1,6 @@
 package Server;
 import java.sql.*;
-import main.CurrentUser;
+import Client.CurrentUser;
 
 
 public class Database
@@ -93,7 +93,7 @@ public class Database
         }
         catch(Exception e)
         {
-            System.err.println("SQl insertNewUser Error");
+            System.err.println("SQL insertNewUser Error");
             e.printStackTrace();
         }
     }

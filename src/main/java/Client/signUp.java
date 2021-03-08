@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
+package Client;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
@@ -13,8 +13,8 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import java.awt.Font;
 import java.awt.Label;
-import java.util.HashMap;
 
+import Client.loginPage;
 import Server.Database;
 /**
  *
@@ -127,8 +127,6 @@ public class signUp implements ActionListener{
             new loginPage();
             frame.dispose();
         }                
-            
-        
-        
+
     }
 }

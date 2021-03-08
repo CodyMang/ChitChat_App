@@ -1,4 +1,4 @@
-package main;
+package Client;
 import java.util.ArrayList;
 public class CurrentUser {
     //These are all Static because there can be only one current User

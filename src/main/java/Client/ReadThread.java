@@ -1,4 +1,6 @@
-package main;
+package Client;
+
+import Client.MainChatPage;
 
 import java.io.*;
 import java.net.*;
