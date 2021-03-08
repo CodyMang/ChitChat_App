@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package chitchat13;
+package main;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -16,15 +16,15 @@ import javax.swing.JPasswordField;
 import java.awt.Font;
 import java.awt.Label;
 import java.util.HashMap;
+import java.util.Objects;
 
+import Server.Database;
 /**
  *
  * @author cthom
  */
 public class loginPage implements ActionListener {
-    HashMap<String,String> user = new HashMap<String,String>();
-   
-    
+
     JFrame frame = new JFrame();
     JButton signIn = new JButton("Sign In");
     JButton signUP = new JButton("Sign Up");
@@ -65,36 +65,34 @@ public class loginPage implements ActionListener {
         
     }
     
-      
+    public static CurrentUser userFromLoginInfo(String userName, String pass)
+    {
+        if(!userName.equals("") && !pass.equals(""))
+        {
+            if(Database.userExists(userName,pass))
+            {
+                return Database.getUserInformation(userName);
+            }
+        }
+       return null;
+    }
     @Override
     public void actionPerformed(ActionEvent e){
         if(e.getSource()==signIn){
-            String userID = userInfo.getText();
-            String pw = String.valueOf(passInfo.getPassword());
-           
-            
-            store stored = new store();
-            if(stored.getstoredInfo().containsKey(userID)){
-                if(stored.getstoredInfo().get(userID).equals(pw)){
-                   new welcomePage();
-                    frame.dispose();
-                }
-                
+
+            if(userFromLoginInfo(userInfo.getText(), passInfo.getText())!= null){
+                new MainChatPage();
+                frame.dispose();
             }
-          
-                
-            else{
+            else {
                 frame.add(message);
             }
         
         }
-        if(e.getSource()==signUP){
+        if(e.getSource()==signUP)
+        {
             signUp sign = new signUp();
             frame.dispose();
-           
-        }
-        else{
-         
         }
     }
    

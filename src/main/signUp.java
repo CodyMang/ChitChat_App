@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package chitchat13;
+package main;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
@@ -14,12 +14,13 @@ import javax.swing.JPasswordField;
 import java.awt.Font;
 import java.awt.Label;
 import java.util.HashMap;
+
+import Server.Database;
 /**
  *
  * @author cthom
  */
 public class signUp implements ActionListener{
-    HashMap<String,String> userInfo =new HashMap<String,String>();
     String [] info = new String[100];
     
     JButton submit = new JButton("Submit");
@@ -35,10 +36,13 @@ public class signUp implements ActionListener{
     JLabel first = new JLabel("First:");
     JLabel last = new JLabel("Last:");
     JLabel url = new JLabel("Email:");
-    JLabel userID = new JLabel("User ID:");
+    JLabel userID = new JLabel("Username:");
     JLabel passW = new JLabel("Password:");
    // Label welcome = new Label("Welcome to Chit Chat");
-   
+
+
+
+
     
     signUp(){
        
@@ -83,14 +87,32 @@ public class signUp implements ActionListener{
         frame.setVisible(true);
         
     }
-    
+
+
+    public String[] organizeString()
+    {
+        String [] organizedInformation = new String[5];
+        organizedInformation[0] = userNameField.getText();
+        organizedInformation[1] = passwordField.getText();
+        organizedInformation[2] = email.getText();
+        organizedInformation[3] = firstName.getText();
+        organizedInformation[4] = lastName.getText();
+        return organizedInformation;
+    }
+
+
     @Override
     public void actionPerformed(ActionEvent evt){
         if(evt.getSource()==submit){
-            String ID = userNameField.getText();
-            String pw = String.valueOf(passwordField.getPassword());
-            userInfo.put(ID, pw);
-            store save = new store(userInfo);
+            try{
+                String[] values = organizeString();
+                Database.insertNewUser(values[0],values[1],values[2],values[3],values[4]);
+            }
+            catch(Exception e){
+                System.out.println("Sign-up submission error");
+                e.printStackTrace();
+            }
+
             new loginPage();
             frame.dispose();
         }
