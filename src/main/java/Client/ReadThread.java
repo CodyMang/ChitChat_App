@@ -36,7 +36,26 @@ public class ReadThread extends Thread{
                 String response = reader.readLine();
                 if(!response.isEmpty())
                 {
-                    mainPage.displayReceivedMessage(response);
+                    int n = response.length();
+                    if(n > 7 && response.contains("DELETE:"))
+                    {
+                        mainPage.updateActiveUsers("DELETE",response.substring(7));
+                    }
+                    else if (n > 4 && response.contains("ADD:"))
+                    {
+                        System.out.println("Trying ADD ");
+                        mainPage.updateActiveUsers("ADD",response.substring(4));
+                    }
+                    else if (n > 6 && response.contains("USERS: "))
+                    {
+                        System.out.println("USERS MADE IT");
+                        System.out.println(response.substring(7));
+                        mainPage.updateActiveUsers("ESTABLISH",response.substring(7));
+                    }
+                    else
+                    {
+                        mainPage.displayReceivedMessage(response);
+                    }
                 }
 
                 // prints the username after displaying the server's message

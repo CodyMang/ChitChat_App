@@ -4,6 +4,7 @@ import Server.ChatServer;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.concurrent.SynchronousQueue;
 
 /**
  * This thread handles connection for each connected client, so the server
@@ -29,13 +30,13 @@ public class UserThread extends Thread {
             OutputStream output = socket.getOutputStream();
             writer = new PrintWriter(output, true);
 
-            printUsers();
+
 
             userName = reader.readLine();
 
             server.addUserName(userName);
-
-            String serverMessage = "New user connected: " + userName;
+            printUsers();
+            String serverMessage = "ADD:" + userName;
             server.broadcast(serverMessage, this);
 
 
@@ -49,12 +50,12 @@ public class UserThread extends Thread {
             server.removeUser(userName, this);
             socket.close();
 
-            serverMessage = userName + " has exited the chat.";
+            serverMessage = "DELETE:" + userName;
             server.broadcast(serverMessage, this);
 
         } catch (IOException ex) {
             System.out.println("Error in UserThread: " + ex.getMessage());
-            server.broadcast(userName + " has exited the chat.",this);
+            server.broadcast("DELETE:" + userName,this);
             server.removeUser(userName, this);
             ex.printStackTrace();
         }
@@ -65,9 +66,12 @@ public class UserThread extends Thread {
      */
     void printUsers() {
         if (server.hasUsers()) {
-            writer.println("Connected users: " + server.getUserNames());
-        } else {
-            writer.println("No other users connected");
+            StringBuilder message = new StringBuilder("USERS: ");
+            for(String user: server.getUserNames())
+            {
+                message.append(user).append(" ");
+            }
+            writer.println(message);
         }
     }
 
