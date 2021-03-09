@@ -68,6 +68,64 @@ public class Database
         return false;
     }
 
+    public static boolean userEmailExist(String userName,String email)
+    {
+        try
+        {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/Chitchat_db","root","1234");
+            //here Chitchat_db is database name, root is username and password
+
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM users WHERE username=? and email =?");
+            stmt.setString(1,userName);
+            stmt.setString(2,email);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+
+            boolean result = rs.getString("username").equals(userName) && rs.getString("email").equals(email);
+
+            rs.close();
+            stmt.close();
+            con.close();
+            return result;
+        }
+        catch(Exception e)
+        {
+            System.err.println("SQL Database:UserExists Error");
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static void insertNewPassword(String userName,String pass)
+    {
+        try
+        {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/Chitchat_db","root","1234");
+            //here Chitchat_db is database name, root is username and password
+
+            PreparedStatement stmt = con.prepareStatement("UPDATE users SET pass=?  WHERE username=?");
+            stmt.setString(1,pass);
+            stmt.setString(2,userName);
+
+            stmt.execute();
+
+
+            stmt.close();
+            con.close();
+
+        }
+        catch(Exception e)
+        {
+            System.err.println("SQL Database:UserExists Error");
+            e.printStackTrace();
+        }
+
+    }
+
     public static void insertNewUser(String userName,String pass,String email, String fname, String lname)
     {
         try

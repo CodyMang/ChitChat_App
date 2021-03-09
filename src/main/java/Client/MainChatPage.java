@@ -122,7 +122,11 @@ public class MainChatPage implements ActionListener {
             }
         }
     }
-
+    public static void main(String[] args)
+    {
+        new CurrentUser("3432423","Generic Name","me@gmail.com","todd","Dole");
+        new MainChatPage();
+    }
 
 
     public JFrame mainContainer = new JFrame(String.format("%s's chat",CurrentUser.getUserName()));

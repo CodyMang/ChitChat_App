@@ -14,7 +14,6 @@ import javax.swing.JPasswordField;
 import java.awt.Font;
 import java.awt.Label;
 
-import Client.loginPage;
 import Server.Database;
 /**
  *
@@ -103,7 +102,7 @@ public class signUp implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent evt){
-        if(evt.getSource()==submit){
+        if(evt.getSource() == submit){
             try{
                 String[] values = organizeString();
                 Database.insertNewUser(values[0],values[1],values[2],values[3],values[4]);
@@ -113,18 +112,18 @@ public class signUp implements ActionListener{
                 e.printStackTrace();
             }
 
-            new loginPage();
+            new LoginPage();
             frame.dispose();
         }
-        else if(evt.getSource()==reset){
+        else if(evt.getSource() == reset){
             firstName.setText("");
             lastName.setText("");
             email.setText("");
             userNameField.setText("");
             passwordField.setText("");
         }
-        else{
-            new loginPage();
+        else if(evt.getSource() == cancel){
+            new LoginPage();
             frame.dispose();
         }                
 

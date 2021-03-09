@@ -5,8 +5,6 @@
  */
 package Client;
 
-import Client.loginPage;
-
 /**
  *
  * @author cthom
@@ -17,7 +15,7 @@ public class StartChat {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        loginPage log = new loginPage();
+        LoginPage log = new LoginPage();
     }
     
 }

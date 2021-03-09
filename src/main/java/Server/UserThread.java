@@ -31,7 +31,7 @@ public class UserThread extends Thread {
 
             printUsers();
 
-            String userName = reader.readLine();
+            userName = reader.readLine();
 
             server.addUserName(userName);
 
@@ -40,6 +40,7 @@ public class UserThread extends Thread {
 
 
             do {
+
                 serverMessage = reader.readLine();
                 server.broadcast(serverMessage, this);
 
@@ -53,8 +54,8 @@ public class UserThread extends Thread {
 
         } catch (IOException ex) {
             System.out.println("Error in UserThread: " + ex.getMessage());
-            server.removeUser(userName, this);
             server.broadcast(userName + " has exited the chat.",this);
+            server.removeUser(userName, this);
             ex.printStackTrace();
         }
     }

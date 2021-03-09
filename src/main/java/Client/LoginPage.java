@@ -22,9 +22,10 @@ import Server.Database;
  *
  * @author cthom
  */
-public class loginPage implements ActionListener {
+public class LoginPage extends JFrame implements ActionListener {
 
-    JFrame frame = new JFrame();
+    boolean resetPageOpen;
+
     JButton signIn = new JButton("Sign In");
     JButton signUP = new JButton("Sign Up");
     JTextField userInfo = new JTextField();
@@ -33,34 +34,40 @@ public class loginPage implements ActionListener {
     JLabel passWord = new JLabel("Password: ");
     Label appName = new Label("Welcome to Chit Chat");
     Label message = new Label("Username and/or password is incorrect");
-    public loginPage(){
+    JButton resetPasswordButton = new JButton("Reset Password");
+    public LoginPage(){
         
-        signIn.setBounds(200,300,80,35);
+        signIn.setBounds(180,300,100,35);
         signIn.addActionListener(this);
         
-        signUP.setBounds(300,300,80,35);
+        signUP.setBounds(320,300,100,35);
         signUP.addActionListener(this);
-        
+
+        resetPasswordButton.setBounds(230,355,140,25);
+        resetPasswordButton.addActionListener(this);
+
         userInfo.setBounds(150,150,300,30);
         passInfo.setBounds(150, 200, 300, 30);
         userName.setBounds(80,150,90,30);
         passWord.setBounds(80,200,80,30);
         appName.setFont(new Font("Arial Italic" ,18,36));
+
         appName.setBounds(115,30,400,80);
         message.setBounds(150,130,300,25);
         message.setForeground(Color.red);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600,500);
-        frame.setLayout(null);
-       
-        frame.add(signIn);
-        frame.add(signUP);
-        frame.add(userInfo);
-        frame.add(passInfo);
-        frame.add(userName);
-        frame.add(passWord);
-        frame.add(appName);
-        frame.setVisible(true);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(600,500);
+        this.setLayout(null);
+
+        this.add(resetPasswordButton);
+        this.add(signIn);
+        this.add(signUP);
+        this.add(userInfo);
+        this.add(passInfo);
+        this.add(userName);
+        this.add(passWord);
+        this.add(appName);
+        this.setVisible(true);
         
     }
     
@@ -81,17 +88,26 @@ public class loginPage implements ActionListener {
 
             if(userFromLoginInfo(userInfo.getText(), passInfo.getText())!= null){
                 new MainChatPage();
-                frame.dispose();
+                this.dispose();
             }
             else {
-                frame.add(message);
+                this.add(message);
             }
         
         }
         if(e.getSource()==signUP)
         {
             signUp sign = new signUp();
-            frame.dispose();
+            this.dispose();
+        }
+
+        if(e.getSource()==resetPasswordButton)
+        {
+            if(!resetPageOpen)
+            {
+                resetPageOpen = true;
+                new ResetPasswordPage();
+            }
         }
     }
    
